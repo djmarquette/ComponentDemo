@@ -1,0 +1,8 @@
+<div class="md-padding">
+    <h1>Hello from Parent Component: {{parent.name}}!</h1>
+    <md-subheader class="md-accent">New isolate scope</md-subheader>
+    <label>Name(parent):</label>
+    <input type="text" ng-model="parent.name" placeholder="Enter parent name here">
+    
+    <child name="parent.name" ng-model="child.name"></child>
+</div>
