@@ -1,9 +1,11 @@
 angular.module('app', ['ngMaterial'])
 
+    // COMPONENTS
     .component('list', {
         templateUrl: 'list.html',
         bindings: {
-            name: '='
+            name: '=',
+            selectedItem: '='
         },
         controller: 'listController',
         controllerAs: 'list'
@@ -12,8 +14,7 @@ angular.module('app', ['ngMaterial'])
     .component('detail', {
         templateUrl: 'detail.html',
         bindings: {
-            name: '=',
-            change: '&'
+            name: '<'
         },
         controller: 'detailController',
         controllerAs: 'detail'
@@ -33,35 +34,59 @@ angular.module('app', ['ngMaterial'])
         bindings: {
             name: '<'
         },
+        require: {
+            parentCtrl: '^parent'
+        },
         controller: 'childController',
         controllerAs: 'child'
     })
 
-    .controller('listController', function() {
-        this.helperFunc = function() { };
-    })
-
-    .controller('detailController', function() {
-    })
-
-    .controller('parentController', function() {
-        this.helperFunc = function() { };
-    })
-
-    .controller('childController', function() {
-        this.helperFunc = function() { };
-    })
-
-
-
-    .controller('appController', function() {
+    // CONTROLLERS
+    .controller('appController', function () {
         var vm = this;
 
         vm.name = 'Dan';
+        vm.selectedItem = {};
+    })
 
-        this.change = function() {
-            alert("app Change reached");
+    .controller('listController', function () {
+        var vm = this;
+        var selectedItem;
+        this.listItems = [];
+        for (var i = 0; i < 5; i++) {
+            var item = {};
+            item.id = i;
+            item.name = 'item' + i;
+            this.listItems.push(item);
+        }
+    })
+
+    .controller('detailController', function () {
+    })
+
+    .controller('parentController', function () {
+        this.helperFunc = function () { };
+        this.refresh = function () {
+            alert("Parent component refresh() called");
         }
 
+    })
+
+    .controller('childController', function () {
+        this.$onInit = function () {
+            this.change = function () {
+                this.parentCtrl.refresh();
+            }
+        };
+
+        this.helperFunc = function () { };
+    })
+
+    // CONFIG
+    .config(function ($mdThemingProvider) {
+        $mdThemingProvider.theme('default')
+            .primaryPalette('blue')
+            .accentPalette('pink')
+            .backgroundPalette('blue-grey');
     });
 

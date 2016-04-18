@@ -7,16 +7,33 @@
 </head>
 
 <body ng-app="app" ng-cloak>
-    <div class="md-padding" ng-controller="appController as vm">
-        <h1>Hello from App controller: {{vm.name}}!</h1>
-        <label>Name:</label>
-        <input type="text" ng-model="vm.name" placeholder="Enter a name here">
-        <md-subheader class="md-accent">Sharing data b/w list & detail via app</md-subheader>
+    <div ng-controller="appController as vm">
+        <div layout="column" layout-align="center center">
+            <h1>Hello from App controller: {{vm.name}}!</h1>
+            <div layout="row" layout-align="space-around center">
+                <label>Name(app): </label>
+                <input type="text" ng-model="vm.name" placeholder="Enter a name here">
+            </div>
+            <input type="text" hidden ng-model="vm.selectedItem"/>
+            <p>
+                The app controller passes the {name} object to its components via their bindings:
+                setup.  As {name} is change in app, it will be reflected in all of its
+                child components.
+            </p>
+        </div>
         <hr/>
-        <list class="well" name="vm.name" ng-model="list.name"></list>
-        <detail class="well" name="vm.name" ng-model="detail.name" ng-change="detail.detailChange()"></detail>
+        <div layout="row" layout-align="space-around default">
+            <div flex>
+                <list name="vm.name" selectedItem="vm.selectedItem">
+                </list>
+                <detail name="vm.name" ng-model="detail.name" ng-change="detail.detailChange()">
+                </detail>
+            </div>
+            <div flex>
+                <parent name="vm.name" ng-model="parent.name"></parent>
+            </div>
+        </div>
         <hr/>
-        <parent name="vm.name" ng-model="parent.name"></parent>
 
     </div>
 

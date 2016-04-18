@@ -1,5 +1,23 @@
 <div class="md-padding">
-    <h1>Hello from List Component: {{list.name}}!</h1>
-    <label>Name(list):</label>
-    <input type="text" ng-model="list.name" placeholder="Enter list name here">
+    <md-content>
+        <div layout-padding>
+            <h2>Hello from List Component: {{list.name}}!</h2>
+            <p>
+                The list component uses two-way binding with the app controller to share the {name}
+                object.  So as list changes the {name}, the change is reflected in the app.
+            </p>
+            <label>Name(list):</label>
+            <input type="text" ng-model="list.name" placeholder="Enter list name here" ng-change="list.refresh()">
+        </div>
+        <div ng-repeat="item in list.listItems">
+            <ul>
+                <li>
+                    <span ng-click="list.name = item.name" ng-model="list.selectedItem">
+                    ID: {{item.id}} 
+                    Name: {{item.name}}
+                </span>
+                </li>
+            </ul>
+        </div>
+    </md-content>
 </div>

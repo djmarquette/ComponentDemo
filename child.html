@@ -1,6 +1,15 @@
 <div class="md-padding">
-    <h1>Hello from Child Component: {{child.name}}!</h1>
-    <md-subheader class="md-accent">One way bound with parent</md-subheader>
+    <h2>Hello from Child Component: {{child.name}}!</h2>
+    <p>
+        The child component uses one-way binding with its parent object.  
+        So as child changes the {name}, the parent component will keep its
+        own version.
+    </p>
+    <p>
+        The child component also "requires" the parent controller via the '^parent'
+        property, and can then call functions on the parent directly.  In this case the 
+        refresh() function is called when the child {name} field is changed.
+    </p>
     <label>Name(child):</label>
     <input type="text" ng-model="child.name" ng-blur="child.change()" placeholder="Enter child name here">
 </div>
