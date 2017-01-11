@@ -14,24 +14,34 @@
                 <label>Name(app): </label>
                 <input type="text" ng-model="vm.name" placeholder="Enter a name here">
             </div>
-            <input type="text" hidden ng-model="vm.selectedItem"/>
+            <span>SelectedItem: {{vm.selectedItem.id}} {{vm.selectedItem.name}}</span>
+            <div>
+                <label>Date 1:</label>
+                <input id="date1" type="date" ng-model="vm.date1" placeholder="Enter date 1"/>
+            </div>
+            <div>
+                <label>Date 2:</label>
+                <input id="date2" type="date" ng-model="vm.date2" placeholder="Enter date 2" min="{{vm.date1 | date:'yyyy-MM-dd'}}"/>
+            </div>
             <p>
-                The app controller passes the {name} object to its components via their bindings:
-                setup.  As {name} is change in app, it will be reflected in all of its
-                child components.
+                The app controller passes the {name} object to its components via their bindings: setup. As {name} is change in app, it will
+                be reflected in all of its child components.
             </p>
         </div>
         <hr/>
         <div layout="row" layout-align="space-around default">
             <div flex>
-                <list name="vm.name" selectedItem="vm.selectedItem">
+                <list name="vm.name" listItems="vm.listItems" selectedItem="vm.selectedItem">
                 </list>
-                <detail name="vm.name" ng-model="detail.name" ng-change="detail.detailChange()">
+                <detail name="vm.name">
                 </detail>
             </div>
             <div flex>
                 <parent name="vm.name" ng-model="parent.name"></parent>
             </div>
+
+
+
         </div>
         <hr/>
 

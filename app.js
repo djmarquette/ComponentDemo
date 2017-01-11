@@ -5,6 +5,7 @@ angular.module('app', ['ngMaterial'])
         templateUrl: 'list.html',
         bindings: {
             name: '=',
+            listItems: '<',
             selectedItem: '='
         },
         controller: 'listController',
@@ -42,17 +43,19 @@ angular.module('app', ['ngMaterial'])
     })
 
     // CONTROLLERS
-    .controller('appController', function () {
+    .controller('appController', function() {
         var vm = this;
 
-        vm.name = 'Dan';
-        vm.selectedItem = {};
-    })
+        vm.name = 'App';
 
-    .controller('listController', function () {
-        var vm = this;
-        var selectedItem;
+        this.selectedItem = {};
         this.listItems = [];
+        this.date1 = new Date();
+        this.date2;
+
+        var x = document.getElementById('date2');
+        var y = document.getElementById('date1');
+
         for (var i = 0; i < 5; i++) {
             var item = {};
             item.id = i;
@@ -61,29 +64,42 @@ angular.module('app', ['ngMaterial'])
         }
     })
 
-    .controller('detailController', function () {
+    .controller('listController', function() {
+
+        this.$onInit = function() {
+            this.selectItem = function(item) {
+                this.selectedItem = item;
+            }
+            var x = this.listItems;
+        }
     })
 
-    .controller('parentController', function () {
-        this.helperFunc = function () { };
-        this.refresh = function () {
+    .controller('detailController', function() {
+    })
+
+    .controller('parentController', function() {
+        this.helperFunc = function() { };
+        this.refresh = function() {
             alert("Parent component refresh() called");
         }
 
     })
 
-    .controller('childController', function () {
-        this.$onInit = function () {
-            this.change = function () {
+    .controller('childController', function() {
+        this.$onInit = function() {
+            this.change = function() {
                 this.parentCtrl.refresh();
             }
         };
+        // this.$onChanges(this.name) = function(){
+        //     alert("name has changed");
+        // }
 
-        this.helperFunc = function () { };
+        this.helperFunc = function() { };
     })
 
     // CONFIG
-    .config(function ($mdThemingProvider) {
+    .config(function($mdThemingProvider) {
         $mdThemingProvider.theme('default')
             .primaryPalette('blue')
             .accentPalette('pink')

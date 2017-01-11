@@ -7,12 +7,13 @@
                 object.  So as list changes the {name}, the change is reflected in the app.
             </p>
             <label>Name(list):</label>
-            <input type="text" ng-model="list.name" placeholder="Enter list name here" ng-change="list.refresh()">
+            <input type="text" ng-model="list.name" placeholder="Enter list name here">
         </div>
         <div ng-repeat="item in list.listItems">
             <ul>
                 <li>
-                    <span ng-click="list.name = item.name" ng-model="list.selectedItem">
+                    <!--<span ng-click="list.name = item.name" ng-model="list.selectedItem">-->
+                    <span ng-click="list.selectItem(item)" ng-model="list.selectedItem">
                     ID: {{item.id}} 
                     Name: {{item.name}}
                 </span>
